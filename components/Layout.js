@@ -39,7 +39,9 @@ const Layout = ({children}) => {
                 {
                     modalState ?  <Modal /> : ''
                 }
+                <div className='min-h-[70vh]'>
                 {children}
+                </div>
                 <Footer />
             </div>
             </>

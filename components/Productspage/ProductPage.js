@@ -7,9 +7,24 @@ import { ImSpinner2 } from 'react-icons/im'
 import { toast } from 'react-toastify';
 import { toggleModal } from '../../redux/modalStore';
 import { RadioGroup } from '@headlessui/react';
+import Image from 'next/image'
+import {motion} from 'framer-motion'
 
 const colors=[1,2,3,4]
 const sizes=[0,2,3,4,5,6]
+
+// Animation (framer)
+const transition = {duration: 1, ease: [0.43, 0.13, 0.23, 0.96]}
+const imageVariants = {
+    exit: { y: "50%", opacity: 0, transition },
+    enter: {
+      y: "0%",
+      opacity: 1,
+      transition
+    }
+  }
+
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -27,7 +42,7 @@ const ProductPage = ({ product, commercePublicKey }) => {
 
     const dispatch = useDispatch()
 
-    const {carts, pending} = useSelector(state => state.cart)
+    const { carts, pending } = useSelector(state => state.cart)
     // console.log(pending);
 
     const commerce = getCommerce(commercePublicKey)
@@ -44,19 +59,25 @@ const ProductPage = ({ product, commercePublicKey }) => {
         const {cart} = await commerce.cart.add(product.id, quantity)
         dispatch(getCart(cart))
         dispatch(toggleModal(true))
-        toast.success("Added to cart",{theme:"coloured"})
+        toast.success("Added to cart", {theme:"coloured"})
     }
 
 
     return (
         <div>
-            <div className="grid grid-cols-2 min-h-[150vh] mt-40 ">
+            <motion.div 
+                initial="exit" animate="enter" exit="exit"
+                className="grid grid-cols-2 min-h-[150vh] mt-40 ">
                
             {/* Image section */}
-                <div className=" col-span-1 p-2 h-[50vh] w-[70vh] mx-auto overflow-hidden">
-                    <img src={product.image.url} className="h-full w-full object-cover object-center rounded-md  "/>
+                {/* <div className=" col-span-1 p-2 h-[50vh] w-[70vh]  mx-auto overflow-hidden"> */}
+                    <motion.img 
+                        variants={imageVariants}
+                        src={product.image.url} 
+                        className="h-[500px] w-[600px] object-cover object-center rounded-md ml-10 "
+                        />
+                {/* </div> */}
                     {/* <div className="bg-green-300 h-20 w-20 mt-8 "/> */}
-                </div>
 
             {/* Product Info */}
 
@@ -221,7 +242,7 @@ const ProductPage = ({ product, commercePublicKey }) => {
                         </div>
 
                 </div>
-            </div>
+            </motion.div>
         </div>
 
     )

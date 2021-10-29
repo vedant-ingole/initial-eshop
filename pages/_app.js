@@ -5,6 +5,7 @@ import store from '../redux/store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Router from 'next/router'
+import { AnimatePresence } from 'framer-motion'
 
 NProgress.configure({showSpinner: false})
 NProgress.configure({ easing: 'ease', speed: 500 })
@@ -15,12 +16,14 @@ Router.events.on('routeChangeStart', () =>  NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router}) {
   return (
         <Provider store={store}>
+          <AnimatePresence exitBeforeEnter initial={false}>
             <Layout>
-              <Component {...pageProps} />
+              <Component {...pageProps} key={router.route} />
             </Layout>
+          </AnimatePresence>
         </Provider>
       
      )}

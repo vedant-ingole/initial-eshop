@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import {motion} from 'framer-motion'
 
 const Categories = ({ categories }) => {
     return (
@@ -8,11 +9,13 @@ const Categories = ({ categories }) => {
 
             {
                 categories.map(category => (
-                    <div key={category.id } className='category col-span-1 bg-red-200'>
+                    <motion.div 
+                        key={category.id }  
+                        className='category col-span-1 bg-red-200'>
                         <Link href={`/categories/${category.slug}`} >
                             <p> {category.name} </p>
                         </Link>
-                    </div>
+                    </motion.div>
                     
                 ))
             }

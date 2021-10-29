@@ -1,17 +1,58 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+
+const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
+
+    // const thumbnailVariants = {
+    //     initial: { scale: 0.9, opacity: 0 },
+    //     enter: { scale: 1, opacity: 1, transition },
+    //     exit: {
+    //     scale: 0.5,
+    //     opacity: 0,
+    //     transition: { duration: 1.5, ...transition }
+    //     }
+    // };
+
+    // const frameVariants = {
+    //     hover: { scale: 0.95 }
+    // };
+    
+    // const imageVariants = {
+    //     hover: { scale: 1.1 }
+    // };  
 
 const Product = ({product}) => {
     return (
-        <div>
-        <div className='w-full h-96 overflow-hidden rounded-md'>
+        <motion.div
+            // variants={thumbnailVariants}
+            // transition={transition}
+            // initial="initial"
+            // animate="enter"
+            // exit="exit"
+            // className='bg-red-200'
+            >
+        <motion.div 
+            // variants={frameVariants}
+            whileHover={{scale:0.95}}
+            transition={transition}
+            className='w-full h-96 overflow-hidden rounded-md'
+            >
             <Link href={`/products/${product.permalink}`}>
-                <img src={product.media.source} alt="" className='w-full h-full object-center object-cover  cursor-pointer' />
+                <motion.img 
+                    // variants={imageVariants}
+                    whileHover={{scale: 1.2}}
+                    transition={transition}
+                    className='object-center object-cover  cursor-pointer'
+                    src={product.media.source} 
+                    alt=""  />
             </Link>
-        </div>
-        <p className='text-xl py-3'>{product.name}</p>
-        <p className='font-bold'>{product.price.formatted_with_symbol}</p>
-       </div>
+        </motion.div>
+            <p className='text-xl py-3'>{product.name}</p>
+            <p className='font-bold'>{product.price.formatted_with_symbol}</p>
+       </motion.div>
     )
 }
 
