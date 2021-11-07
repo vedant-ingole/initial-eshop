@@ -17,7 +17,7 @@ const CartModal = ({closeModal, commercePublicKey}) => {
     } 
 
     return (
-        <div className='h-full w-5/6 sm:w-1/2 md:w-1/3 bg-white p-5 fixed top-0 right-0 z-40 overflow-auto'>
+        <div className='h-full w-5/6 sm:w-1/2 md:w-1/3 bg-white p-5 fixed top-0 right-0 z-50 overflow-auto'>
 
             {/* Heading */}
             <div className='flex items-center'>

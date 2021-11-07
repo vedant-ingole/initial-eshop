@@ -5,6 +5,7 @@ import getCommerce from '../../lib/commerce'
 import Head from 'next/head'
 import { useDispatch } from 'react-redux';
 import { setInventory } from '../../redux/cartRedux'
+import ProductSlider from '../../components/Productspage/ProductSlider';
 
 // export async function getStaticProps({ params }) {
 
@@ -68,6 +69,7 @@ const ProductPages = ({ product }) => {
         <div className='flex flex-col m-auto'>
             <ProductPage product={product} />
             <RelatedProducts className='h-screen' products ={relatedProducts} />
+            <ProductSlider />
         </div>
       </>
     )

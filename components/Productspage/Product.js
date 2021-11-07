@@ -36,14 +36,15 @@ const Product = ({product}) => {
             >
         <motion.div 
             // variants={frameVariants}
-            whileHover={{scale:0.95}}
+            // whileHover={{scale:0.95}}
+            whileTap={{scale:0.85}}
             transition={transition}
             className='w-full h-96 overflow-hidden rounded-md'
             >
             <Link href={`/products/${product.permalink}`}>
                 <motion.img 
                     // variants={imageVariants}
-                    whileHover={{scale: 1.2}}
+                    whileHover={{scale: 1.1}}
                     transition={transition}
                     className='object-center object-cover  cursor-pointer'
                     src={product.media.source} 

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    overflow-x: hidden;
+    /* cursor: none; */
+}
 
 .modalstyle{
     background-color: rgba(0, 0, 0, 0.5)
@@ -42,6 +46,61 @@
   }
 
 
+/*   Category Slider   */
+.slide{
+    transform: scale(0.8);
+    transition: transform 300ms;
+    opacity: 0.5;
+}
+
+.activeSlide{
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.arrow{
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Product Slider */
+.product{
+    overflow: hidden;
+}
+
+
+
+/* Parallax Text */
+.text-parent{
+    position: absolute;
+    top: 45%;
+}
+
+.text-parent h1{
+    /* color: white; */
+    line-height: 110%;
+    font-size: 7vw;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sequel, sans-serif;
+    font-style: italic;
+}
+
+.outline{
+    -webkit-text-stroke: 3px white;
+    /* text-stroke: 1px white; */
+    color: transparent; 
+}
+.out2{
+    /* margin-left: -30%; */
+}
+
+
+
+/*    Custom ScorollBar   */
 ::-webkit-scrollbar{
     width: 15px;
 }    
@@ -53,6 +112,6 @@
 }
 /* background: linear-gradient(transparent, rgb(108, 231, 253));    */
 ::-webkit-scrollbar-thumb:hover{
-    background: rgb(251, 114, 114);
+    background: #41B08E;
 }
 

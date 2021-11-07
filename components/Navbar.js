@@ -30,11 +30,11 @@ const Navbar = ({commercePublicKey}) => {
     })
 
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()  
 
     useEffect(() => {
       const fetchCart = async () => {
-       const cart= await commerce.cart.retrieve()
+      const cart= await commerce.cart.retrieve()
        dispatch(getCart(cart))
       }
       fetchCart()
@@ -47,14 +47,14 @@ const Navbar = ({commercePublicKey}) => {
 
     return (
         <>
-            <div className= {` ${colorChange ?  'bg-white shadow-lg transition-all ease-in-out duration-500' : '' } fixed top-0 w-full h-20 grid grid-cols-3 gap-2 `} >
+            <div className= {` ${colorChange ?  'bg-white shadow-lg transition-all ease-in-out duration-500' : 'text-white' } fixed top-0 w-full h-20 grid grid-cols-3 gap-2 z-40 `} >
                 <div className='grid-span-1 justify-items-center  flex items-center'>
                     <HiMenuAlt1 className='mx-7' /> 
                 </div>
                 <div className='grid-span-1 '>
                     {/* <NextLink href="/"> */}
                         <Link href="/">
-                            <h1 className='text-center text-3xl tracking-widest font-semibold cursor-pointer'>Sarees <br /> Collection</h1>
+                            <h1 className='text-center text-3xl tracking-widest font-thin cursor-pointer uppercase'>Sarees <br /> Collection</h1>
                         </Link>
                     {/* </NextLink> */}
                 </div>

@@ -6,6 +6,12 @@ import getCommerce from '../lib/commerce'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '../redux/cartRedux';
 
+import Latest from '../components/Latest/Latest'
+import ParallaxText from '../components/ParallaxText'
+
+// export const config = {
+//   unstable_runtimeJS: false
+// }
 
 export async function getStaticProps({commercePublicKey}) {
 
@@ -29,7 +35,7 @@ export default function Home({ merchant, categories, products, commercePublicKey
   
   const commerce = getCommerce(commercePublicKey)
 
-  console.log(stripePublicKey);
+  // console.log(stripePublicKey);
   
 
   // const addToCart = async (productId, quantity) => {
@@ -42,7 +48,9 @@ export default function Home({ merchant, categories, products, commercePublicKey
       <Header  />
       <Showcase />
       <Categories categories={categories} />
+      <Latest/>
       <ProductList products={products} />
+      {/* <ParallaxText /> */}
     </>
     )
   }

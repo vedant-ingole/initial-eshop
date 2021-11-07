@@ -16,7 +16,7 @@ const category = () => {
 
                 <div className='col-span-4'>
                  <ProductList />
-                 <ProductList />
+                 {/* <ProductList /> */}
                 </div>
 
             </div>
