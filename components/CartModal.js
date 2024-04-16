@@ -2,22 +2,53 @@ import React from 'react'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
 import getCommerce from '../lib/commerce'
-import { getCart } from '../redux/cartRedux'
+import { getCart } from '../redux/cartRedux' 
+import {selectUser} from '../redux/userStore'
+import {AnimatePresence, motion} from 'framer-motion'
+import { useEffect } from 'react'
+
+
+// Animation (framer)
+const menuTransition = {
+  type: "spring",
+  duration: 1,
+  stiffness: 33,
+  delay: 0.1,
+};
+const menuVariants = {
+  open: {
+    transform: "translateX(0%)",
+  },
+  closed: {
+    transform: "translateX(103%)",
+  },
+};
+
+
 
 const CartModal = ({closeModal, commercePublicKey}) => {
 
     const commerce = getCommerce()
     const dispatch = useDispatch()
 
+    const {modalState} = useSelector(state => state.modal)
+    console.log(modalState);
+
     const {carts} = useSelector(state => state.cart)
+    const user = useSelector(selectUser)
 
     const removeProductFromCart = async (id) => {
         const {cart} = await commerce.cart.remove(id)
         dispatch(getCart(cart))
     } 
+    // console.log(user);
 
     return (
-        <div className='h-full w-5/6 sm:w-1/2 md:w-1/3 bg-white p-5 fixed top-0 right-0 z-50 overflow-auto'>
+      <AnimatePresence>
+        <motion.div 
+          className={`${modalState ? 'translate-x-0' : 'translate-x[100%]'} transition-transform h-full w-5/6 sm:w-1/2 md:w-1/3 bg-gray-100 p-5 fixed top-0 right-0 z-50 overflow-auto`}
+          style={{}}
+          >
 
             {/* Heading */}
             <div className='flex items-center'>
@@ -30,7 +61,7 @@ const CartModal = ({closeModal, commercePublicKey}) => {
                 <ul role="list" className='-my-6 divide-y divide-gray-200'>
                     {  Object.keys(carts).length > 0 &&
                         carts.line_items.map((product) => (
-                            <li key={product.id} className='py-6 flex'>
+                          <li key={product.id} className='py-6 flex'>
                         {/* Product Image */}
                                <div className="w-24 h-24 border border-gray-500 rounded-md overflow-hidden ">
                                 <img
@@ -65,7 +96,7 @@ const CartModal = ({closeModal, commercePublicKey}) => {
                               </div>
                             </li>
                         ))
-                    }
+                      }
                 </ul>
             </div>
 
@@ -74,16 +105,29 @@ const CartModal = ({closeModal, commercePublicKey}) => {
             <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>{ carts && carts.subtotal.formatted_with_symbol}</p>
+                      <p>{ Object.keys(carts).length > 0 && carts.subtotal.formatted}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                   
+                   
                     <div className="mt-6">
-                      <Link href="/checkout">
-                        <a className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                          Checkout
-                        </a>
-                      </Link>
+                      {
+                        user ? 
+                              <Link href="/checkout">
+                                <a className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                                  Checkout
+                                </a>
+                              </Link>
+                            : 
+                              <Link href="/login">
+                                <a className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                                  Checkout
+                                </a>
+                              </Link>
+                      }
                     </div>
+
+
                     <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
                       <p>
                         or{' '}
@@ -102,12 +146,9 @@ const CartModal = ({closeModal, commercePublicKey}) => {
             <div>
 
             </div>
-        </div>
+        </motion.div>
+      </AnimatePresence>
     )
 }
 
 export default CartModal
-
-{/* <Link href="/cart" >
-    <a > Go to Cart </a>
-</Link> */}

@@ -8,7 +8,9 @@ import { toast } from 'react-toastify';
 import { toggleModal } from '../../redux/modalStore';
 import { RadioGroup } from '@headlessui/react';
 import Image from 'next/image'
-import {motion} from 'framer-motion'
+import {motion, AnimatePresence} from 'framer-motion'
+import ImageSlider from './ImageSlider';
+
 
 const colors=[1,2,3,4]
 const sizes=[0,2,3,4,5,6]
@@ -62,29 +64,64 @@ const ProductPage = ({ product, commercePublicKey }) => {
         toast.success("Added to cart", {theme:"coloured"})
     }
 
+    //Img zoom
+    const [selectedId, setSelectedId] = useState(null)
 
     return (
         <div>
             <motion.div 
                 initial="exit" animate="enter" exit="exit"
-                className="grid grid-cols-2 min-h-[150vh] mt-40 ">
+                className="flex min-h-[80vh] mt-40 mx-10">
                
             {/* Image section */}
-                {/* <div className=" col-span-1 p-2 h-[50vh] w-[70vh]  mx-auto overflow-hidden"> */}
-                    <motion.img 
+                    {/* <motion.img 
                         variants={imageVariants}
                         src={product.image.url} 
-                        className="h-[500px] w-[600px] object-cover object-center rounded-md ml-10 "
+                        layoutId={product.id}
+                        onClick={() => setSelectedId(product.id)}
+                        className="h-[500px] w-[600px] object-cover object-center rounded-md ml-10 cursor-pointer "
                         />
-                {/* </div> */}
-                    {/* <div className="bg-green-300 h-20 w-20 mt-8 "/> */}
+
+                        <AnimatePresence>
+                            {
+                                selectedId && 
+                                    <>
+                                    <motion.div 
+                                        transition={transition}
+                                        initial={{opacity:0}}
+                                        animate={{opacity:0.8}}
+                                        exit={{opacity:0}}
+                                        onClick={() => setSelectedId(null)}
+                                        className='fixed top-0 left-0 h-full w-full z-40 bg-black opacity-50 hover:cursor-pointer'>
+                                        </motion.div>
+                                    <motion.img 
+                                        src={product.image.url} 
+                                        layoutId={product.id}
+                                        initial={{opacity:0}}
+                                        animate={{opacity:1}}
+                                        transition={transition}
+                                        exit={{opacity:0, scale:0.6, top:"10%", left:"10%"}}
+                                        // onClick={() => setSelectedId(null)}
+                                        className="fixed z-40 h-[600px] w-[700px] object-cover object-center rounded-md ml-10  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+                                        />
+                                    
+                                    </>
+                            }
+                        </AnimatePresence> */}
+                        <div className="h-full w-[60%] mb-28  ">
+                            <ImageSlider product={product} />
+                        </div>
+
 
             {/* Product Info */}
 
-                <div className=" col-span-1 p-10">
-                    <div className="flex min-h-[5rem]" >
-                        <h1 className='flex-1 text-3xl font-medium'>{product.name}</h1>
-                        <p className='text-2xl font-bold'>{product.price.formatted_with_symbol}</p>
+                <div className=" w-full px-10 py-3">
+                    <div className="flex items-center" >
+                        <h1 className='flex-1 text-3xl font-semibold'>{product.name}</h1>
+                    {/* <p className="font-bold text-2xl">{product.categories.slug}</p> */}
+                    </div>
+                    <div className='my-5'>
+                        <p className='text-2xl font-medium'>{product.price.formatted_with_symbol}</p>
                     </div>
                    <div className=' mb-2 font-semibold'>
                     {
@@ -96,114 +133,16 @@ const ProductPage = ({ product, commercePublicKey }) => {
 
 
             {/* Color */}
-                <div className=" min-h-[7rem]">
-                     <h3 className="text-lg text-gray-900 font-medium ">Color</h3>
-
-                    <RadioGroup 
-                        value={selectedColor} onChange={setSelectedColor} 
-                        className="py-6 mx-1">
-                    <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                        <div className="flex items-center space-x-3">
-                            {colors.map((color, index) => (
-                                <RadioGroup.Option
-                                    key={index}
-                                    value={color}
-                                    className={({ active, checked }) =>
-                                    classNames(
-                                        color.selectedClass,
-                                        active && checked ? 'ring ring-offset-1' : '',
-                                        !active && checked ? 'ring-2' : '',
-                                        '-m-0.5 p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                    )
-                                    }
-                                >
-                                    <RadioGroup.Label as="p" className="sr-only">
-                                    {color}
-                                    </RadioGroup.Label>
-                                    <span
-                                    aria-hidden="true"
-                                    className={classNames(
-                                        color,
-                                        'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                                    )}
-                                    />
-                                </RadioGroup.Option>
-                            ))}
-                        </div>
-                    </RadioGroup>
-                 </div>
+            
 
 
                 {/* Size  */}
-                <div className="my-7 ">
-                    <div className="flex items-center justify-between ">
-                    <h3 className="text-lg text-gray-900 font-medium ">Size</h3>
-                    <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                        Size guide
-                    </a>
-                    </div>
-
-                    <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4 ">
-                    <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-5 sm:grid-cols-8 lg:grid-cols-4">
-                        {sizes.map((size, index) => (
-                        <RadioGroup.Option
-                            key={index}
-                            value={size}
-                            // disabled={!size.inStock}
-                            className={({ active }) =>
-                            classNames(
-                                // size.inStock
-                                size
-                                ? 'bg-white shadow-sm text-gray-900 cursor-pointer '
-                                : 'bg-gray-50 text-gray-200 cursor-not-allowed ',
-                                active ? 'ring-2 ring-indigo-500' : '',
-                                'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
-                            )
-                            }
-                        >
-                            {({ active, checked }) => (
-                            <>
-                                {/* <RadioGroup.Label as="p">{size.name}</RadioGroup.Label> */}
-                                <RadioGroup.Label as="p">{size}</RadioGroup.Label>
-                                {/* {size.inStock ? ( */}
-                                {size ? (
-                                <div
-                                    className={classNames(
-                                    active ? 'border' : 'border-2',
-                                    checked ? 'border-indigo-500' : 'border-transparent',
-                                    'absolute -inset-px rounded-md pointer-events-none'
-                                    )}
-                                    aria-hidden="true"
-                                />
-                                ) : (
-                                <div
-                                    aria-hidden="true"
-                                    className="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none"
-                                >
-                                    {/* <svg
-                                    className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    stroke="currentColor"
-                                    >
-                                    <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                    </svg> */}
-                                </div>
-                                )}
-                            </>
-                            )}
-                        </RadioGroup.Option>
-                        ))}
-                    </div>
-                    </RadioGroup>
-              </div>
 
 
 
 
                 {/* Quantity Selector */}
-                {
+                {/* {
                     product.inventory.available === 0 ? "" :
                         <div className='flex justify-center my-10'>
                         <button 
@@ -221,10 +160,10 @@ const ProductPage = ({ product, commercePublicKey }) => {
                                 onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} > -
                             </button>
                         </div>
-                }
+                } */}
 
                 {/* Add To Bag */}
-                   <button 
+                   <button   data-scroll data-scroll-speed={1}
                         disabled={pending || product.inventory.available === 0 }
                         onClick={addToCart}
                         className={` ${pending || product.inventory.available === 0 ? 'pointer-events-none' : ''}   w-full addtocartbutton border h-16 bg-indigo-600 text-white rounded-md p-5`}>
@@ -237,7 +176,7 @@ const ProductPage = ({ product, commercePublicKey }) => {
 
                     {/* Description */}
                         <div className='my-10 '> 
-                            <h1 className='text-lg text-gray-900 font-medium ' >Description</h1>
+                            {/* <h1 className='text-lg text-gray-900 font-medium ' >Description</h1> */}
                             <div className='text-gray-500' dangerouslySetInnerHTML={{ __html: product.description }} />
                         </div>
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import getCommerce from '../lib/commerce'
-import { getCart } from '../redux/cartRedux'
+import { getCart, updateStart } from '../redux/cartRedux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -13,6 +13,8 @@ const CartItem = ({ product }) => {
     const commerce = getCommerce()
 
     const [stock, setStock] = useState()
+
+    const { carts, pending } = useSelector(state => state.cart)
 
     const getInventory = async (productId) => {
         const {inventory} = await commerce.products.retrieve(productId)
@@ -26,6 +28,8 @@ const CartItem = ({ product }) => {
 
 
     const removeProductFromCart = async (id) => {
+        dispatch(updateStart())
+
         const {cart} = await commerce.cart.remove(id)
         dispatch(getCart(cart))
     }
@@ -75,8 +79,9 @@ const CartItem = ({ product }) => {
 
             {/* Remove Item     */}
                 <button 
+                    disabled={pending}
                     onClick={()  => removeProductFromCart(product.id)}
-                    className="border h-9 bg-indigo-600 text-lg text-white rounded-md px-3 mb-1">
+                    className={`${pending ? 'cursor-progress opacity-80' : ''} border h-9 bg-indigo-600 text-lg text-white rounded-md px-3 mb-1`}>
                     Remove
                 </button>
                 

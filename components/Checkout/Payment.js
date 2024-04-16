@@ -21,6 +21,7 @@ const Payment = ({checkoutToken, shippingData, onCaptureCheckout}) => {
         if(error) {
             console.log(error);
         } else {
+            //Commerce js specific data
             const orderData= {
                 line_items: checkoutToken.live.line_items,
                 customer: {
@@ -32,10 +33,8 @@ const Payment = ({checkoutToken, shippingData, onCaptureCheckout}) => {
                     name: 'Primary',
                     street: shippingData.address1,
                     town_city: shippingData.city, 
-                    // county_state: shippingData.shippingSubdivision,
-                    // country: shippingData.shippingCountry,
-                    county_state: "IN-MH",
-                    country: "IN",
+                    county_state: shippingData.shippingSubdivision,
+                    country: shippingData.shippingCountry,
                     postal_zip_code: shippingData.zip,
                 },
                 fulfillment: {shipping_method: shippingData.shippingOption},

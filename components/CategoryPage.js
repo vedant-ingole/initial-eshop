@@ -4,7 +4,7 @@ import {motion} from 'framer-motion'
 // import { useSelector } from 'react-redux'
 
 
-const CategoryPage = ({ category, products}) => {
+const CategoryPage = ({ category, products }) => {
 
 
     return (
@@ -20,9 +20,13 @@ const CategoryPage = ({ category, products}) => {
                    <h1 className='text-2xl py-7'> Filters </h1>
                 </div>
 
-                <div className='col-span-4'>
+                <motion.div 
+                    initial={{y:20}}
+                    animate={{y:0, transition: { ease: 'easeOut', duration:0.5 }}}
+                    exit={{opacity:0, transition: { ease: 'easeOut', duration:0.5 }}}
+                    className='col-span-4' >
                  <ProductList products={products} />
-                </div>
+                </motion.div>
 
             </div>
         </div>

@@ -8,17 +8,18 @@ import { getCart } from '../redux/cartRedux';
 
 import Latest from '../components/Latest/Latest'
 import ParallaxText from '../components/ParallaxText'
+import {motion} from 'framer-motion'
 
-// export const config = {
-//   unstable_runtimeJS: false
-// }
+// import useSWR from 'swr'
 
-export async function getStaticProps({commercePublicKey}) {
 
-    const commerce = getCommerce(commercePublicKey)
+export async function getStaticProps() {
+
+    const commerce = getCommerce()
   
     const { data: categories } = await commerce.categories.list()
-    const { data: products } = await commerce.products.list({limit: 6})
+    console.log(categories);
+    const { data: products } = await commerce.products.list({limit: 8})
     
     return {
       props: {
@@ -31,9 +32,9 @@ export async function getStaticProps({commercePublicKey}) {
 
 
 
-export default function Home({ merchant, categories, products, commercePublicKey, stripePublicKey }) {
+export default function Home({products, categories}) {
   
-  const commerce = getCommerce(commercePublicKey)
+  // const commerce = getCommerce(commercePublicKey)
 
   // console.log(stripePublicKey);
   
@@ -43,17 +44,19 @@ export default function Home({ merchant, categories, products, commercePublicKey
   //     setCart(cart)
   // }
 
-  return (
+  return (  
     <>
       <Header  />
       <Showcase />
-      <Categories categories={categories} />
-      <Latest/>
+      <Categories categories={categories}/>
+      <Latest categories={categories} products={products} />
       <ProductList products={products} />
-      {/* <ParallaxText /> */}
-    </>
+    </>    
     )
   }
+  
+  {/* <ParallaxText /> */}
+  // className="layout" data-scroll data-scroll-section data-scroll-class="f-layout"
   
   
   

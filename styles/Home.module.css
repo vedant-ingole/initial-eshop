@@ -1,0 +1,154 @@
+/* Styling for form */
+body{
+    /* background-color: #edece9; */
+}
+.container{
+    text-align: center; 
+    margin-top: 10rem;
+    width: 100%;
+    /* margin: auto; */
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    width: 50%;
+    margin: auto;
+}
+
+.auth-input{
+    padding: 10px;
+    width: 35%;
+    margin: 15px;
+    outline: none;
+    background: #edece9;
+    border-bottom: 2px solid rgb(177, 177, 177) ;
+    transition: all 0.4s ease-in-out;
+}
+.auth-input:focus{
+    /* width: 35%; */
+    border-bottom: 2px solid black ;
+}
+
+/* .auth-button{
+    background-color: rgb(43, 105, 238);
+    font-size: large;
+    cursor: pointer;
+    padding: 15px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 10rem;
+    margin-right: 10px;
+} */
+
+.login2{
+    border: 1px solid black;
+    padding: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 40%;
+    transition: all 0.3s ease;
+    font-size: large;
+    background-color: #d8d8d8;
+}
+.login2:hover{
+    background-color: #cccccc;
+}
+
+
+/* Hamburger Menu */
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    height: 100vh;
+  }
+  
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 23vw;
+  background: rgb(236, 236, 236);
+  /* background: black; */
+}
+
+.button {
+  outline: none;
+  border: none;
+  /* -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; */
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  left: 27px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  /* background-color: black; */
+  z-index: 10000;
+}
+  
+.ul,
+.li {
+  margin: 0;
+  padding: 0;
+}
+
+.ul {
+  padding: 25px;
+  position: absolute;
+  top: 100px;
+  width: 230px;
+}
+
+.li {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex: 40px 0;
+  margin-right: 20px;
+}
+
+.text-placeholder {
+  border-radius: 5px;
+  width: 200px;
+  height: 20px;
+  flex: 1;
+}
+
+.refresh {
+  padding: 10px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

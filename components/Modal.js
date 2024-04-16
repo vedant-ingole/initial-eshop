@@ -10,6 +10,8 @@ const Modal = () => {
     const router = useRouter()
     const dispatch = useDispatch()
 
+    console.log(router)
+
     const handleModalClose = () => {
         dispatch(toggleModal(false))
     }

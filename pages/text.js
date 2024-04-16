@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { useEffect } from 'react'
 
 
@@ -13,7 +13,7 @@ const useScrollPosition = () => {
     
     const onScroll = () => { setScrollY(window.pageYOffset) }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
 
             window.addEventListener('scroll', onScroll)
         return () => {

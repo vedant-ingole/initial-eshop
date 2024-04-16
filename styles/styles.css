@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './Home.module.css';
+
 body{
     overflow-x: hidden;
     /* cursor: none; */
@@ -11,10 +13,10 @@ body{
     background-color: rgba(0, 0, 0, 0.5)
 }
 
-.main {
+/* .main {
     @apply flex flex-col items-center justify-center w-full flex-1 px-20 text-center;
     background-color: beige;
-}
+} */
 
 .category{
     @apply flex justify-center items-center text-5xl font-semibold cursor-pointer;
@@ -49,19 +51,27 @@ body{
 /*   Category Slider   */
 .slide{
     transform: scale(0.8);
+    transform: scale(1);
     transition: transform 300ms;
-    opacity: 0.5;
+    opacity: 0.3;
+    opacity: 1;
 }
 
 .activeSlide{
     transform: scale(1.1);
+    transform: scale(1);
     opacity: 1;
+    /* padding-left: 3em; */
 }
 
 .arrow{
     position: absolute;
     cursor: pointer;
     z-index: 10;
+    /* cursor: none; */
+}
+.arrow:hover {
+    /* background-color: turquoise; */
 }
 
 /* Product Slider */
@@ -100,18 +110,31 @@ body{
 
 
 
-/*    Custom ScorollBar   */
+        /*    Custom ScorollBar   */
+
 ::-webkit-scrollbar{
     width: 15px;
 }    
-/* background: linear-gradient(transparent, rgb(108, 231, 253));    */
+
+/* background: linear-gradient(transparent, rgb(108, 231, 253));    */ */
 ::-webkit-scrollbar-thumb{
-    background: rgb(156, 156, 156) ;
+    background: rgb(126, 126, 126) ;
     border-radius: 10px;
     padding: 10px;
-}
+} 
+
 /* background: linear-gradient(transparent, rgb(108, 231, 253));    */
 ::-webkit-scrollbar-thumb:hover{
     background: #41B08E;
+}
+
+
+/* Layout Classes */
+.layout{
+    opacity: 0;
+}
+.f-layout{
+    opacity: 1;
+    transition: opacity 2s;
 }
 

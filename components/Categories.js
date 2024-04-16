@@ -1,25 +1,25 @@
 import React from 'react'
 import Link from 'next/link'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const Categories = ({ categories }) => {
     return (
        
-        <div className='grid grid-cols-3 gap-3 p-2 grid-rows-2 min-h-screen w-full m-auto my-2 ' >
-
+        <motion.div className='grid grid-cols-3 gap-3 p-2 grid-rows-2 min-h-screen w-full m-auto my-2 ' >
             {
                 categories.map(category => (
                     <motion.div 
+                    exit={{opacity:0, y:20, transition: { ease: 'easeOut', duration:.5 }}}
                         key={category.id }  
                         className='h-96 category col-span-1 bg-red-200 rounded-md '>
-                        <Link href={`/categories/${category.slug}`} >
+                        <Link href={`/categories/${category.slug}`} scroll={false}>
                             <p className='self-end p-5 text-blue-900'> {category.name} </p>
                         </Link>
                     </motion.div>
                     
                 ))
             }
-        </div>
+        </motion.div>
     ) }
     
     export default Categories

@@ -29,9 +29,9 @@ const Cart = () => {
 
         const {cart} = await commerce.cart.empty()
         dispatch(getCart(cart))
-        toast.success("All items are removed from your bag",{theme:"coloured"})
-
+        toast.success("All items are removed from your bag",{ theme:"coloured" })
     }
+
     
     return (
         <>
@@ -86,7 +86,7 @@ const Cart = () => {
                                 onClick={emptyCart}
                                 className="m-auto my-10  w-3/5 border h-16 bg-indigo-600 text-lg text-white rounded-md px-3">
                                     { pending ? <div className=''>
-                                                    <div className='loader cursor-pointer'/>
+                                                    <div className='loader cursor-none'/>
                                                 </div>  
                                                 :  <p>Empty Bag</p> } 
                             </button>
@@ -112,13 +112,9 @@ const Cart = () => {
                                 </div>
                                 <div className='flex p-5 mt-5 text-xl text-gray-600 '>
                                         <h1 className='flex-1 p-1'>Subtotal</h1>
-                                        {/* <h1 className='p-1'> { carts && carts.subtotal.formatted } </h1> */}
+                                        <h1 className='p-1'> {  Object.keys(carts).length > 0 && carts.subtotal.formatted } </h1>
                                 </div>
                                 </div>
-
-                                {/* <div className=''>
-                                    Subtotal
-                                </div> */}
 
                             </div>
                         </div>
@@ -132,6 +128,3 @@ const Cart = () => {
 }
 
 export default Cart
-// export default dynamic(() => Promise.resolve(Cart), {
-//     ssr: false,
-//   });
